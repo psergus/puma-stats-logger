@@ -25,6 +25,7 @@ module PumaStatsLogger
     end
 
     def log_puma_stats
+      puts puma_options.inspect
       stats = Socket.unix(puma_options[:control_url].gsub('unix://', '')) do |socket|
         socket.print("GET /stats?token=#{puma_options[:control_auth_token]} HTTP/1.0\r\n\r\n")
         socket.read
